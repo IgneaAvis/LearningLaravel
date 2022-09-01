@@ -18,8 +18,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', [\App\Http\Controllers\Api\PostController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/post/{id}', [\App\Http\Controllers\Api\PostController::class, 'getById'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('/posts', [\App\Http\Controllers\Api\PostController::class, 'index']);
+    Route::get('/post/{id}', [\App\Http\Controllers\Api\PostController::class, 'getById']);
+});
+
+
 
 Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
+
 //1|KC65MIH2OVaTWi9PI5lo1wsyOkm75WhQTUg3RcSm
